@@ -35,6 +35,4 @@ const getWeatherForecast = async (lat, lon) => {
   return forecastData;
 }
 
-
-
 export { getCityDetails, getWeatherDetails, getWeatherForecast };
