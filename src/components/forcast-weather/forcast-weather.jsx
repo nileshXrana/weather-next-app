@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Image from 'next/image';
 
 const getWeatherIcon = (code) => {
     if (code === 0) return "01d";
@@ -73,20 +74,20 @@ const forcastWeather = ({ weatherData }) => {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                bgcolor: 'rgba(255, 255, 255, 0.18)',
-                                border: '1px solid rgba(255, 255, 255, 0.4)',
+                                // bgcolor: 'rgba(255, 255, 255, 0.18)',
+                                // border: '1px solid rgba(255, 255, 255, 0.4)',
                                 borderRadius: '16px',
                                 p: 2,
                                 minWidth: '200px',
-                                gap: 1.5,
+                                // gap: 1,
                                 transition: 'transform 0.2s',
                                 '&:hover': {
-                                    transform: 'translateY(-4px)',
-                                    bgcolor: 'rgba(255, 255, 255, 0.25)'
+                                    transform: 'translateY(-6px)',
+                                    bgcolor: 'rgba(255, 255, 255, 0.03)'
                                 }
                             }}
                         >
-                             <img
+                            <Image
                                 src={`/icons/${day.icon}.png`}
                                 alt={day.label}
                                 width={100}
@@ -116,34 +117,34 @@ const forcastWeather = ({ weatherData }) => {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            bgcolor: 'rgba(255, 255, 255, 0.05)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            // bgcolor: 'rgba(255, 255, 255, 0.05)',
+                            // border: '1px solid rgba(255, 255, 255, 0.1)',
                             borderRadius: '16px',
                             p: 2,
                             minWidth: '100px',
                             flex: 1,
                             transition: 'transform 0.2s',
                             '&:hover': {
-                                transform: 'translateY(-4px)',
-                                bgcolor: 'rgba(255, 255, 255, 0.2)'
+                                transform: 'translateY(-6px)',
+                                bgcolor: 'rgba(255, 255, 255, 0.03)'
                             }
                         }}
                     >
                         <Typography variant='body2' sx={{ color: '#fff', mb: 1 }}>
                             {day.dayName}
                         </Typography>
-                        
-                        <img
+
+                        <Image
                             src={`/icons/${day.icon}.png`}
                             alt={day.label}
-                            width={50}
-                            height={50}
+                            width={70}
+                            height={70}
                         />
-                        
+
                         <Typography variant='caption' sx={{ color: 'rgba(255, 255, 255, 0.7)', my: 0.5 }}>
                             {day.label}
                         </Typography>
-                        
+
                         <Typography variant='body2' sx={{ color: '#fff', fontWeight: '500', mt: 1 }}>
                             {day.tempMax}° / <span style={{ opacity: 0.6 }}>{day.tempMin}°</span>
                         </Typography>

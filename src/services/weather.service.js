@@ -22,7 +22,7 @@ const getCityDetails = async (cityName) => {
 };
 
 const getWeatherForecast = async (lat, lon) => {
-  try{
+  try {
     const forecast = await axios.get(
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&forecast_days=7&timezone=auto`
     );
@@ -33,11 +33,11 @@ const getWeatherForecast = async (lat, lon) => {
   }
 };
 
-const searchCities = async (query) => {
-  if (!query) return [];
+const searchCities = async (city) => {
+  if (!city) return [];
   try {
     const response = await axios.get(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=5&language=en&format=json`
     );
     return response.data.results || [];
   } catch (error) {

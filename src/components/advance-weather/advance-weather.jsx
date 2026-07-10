@@ -9,6 +9,7 @@ import { Typography } from '@mui/material';
 import { useForm } from "react-hook-form"
 import { useDebounce } from 'use-debounce'
 import { getCityDetails, searchCities } from '@/services/weather.service'
+import SearchIcon from '@mui/icons-material/Search';
 
 const advanceWeather = ({ weatherData, setWeatherData }) => {
 
@@ -86,7 +87,7 @@ const advanceWeather = ({ weatherData, setWeatherData }) => {
                     variant="contained"
                     type='submit'
                 >
-                    Search
+                    <SearchIcon />
                 </Button>
             </form>
 
