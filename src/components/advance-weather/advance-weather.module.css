@@ -1,4 +1,4 @@
-.formContainer{
+.formContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -8,11 +8,87 @@
     width: 100%;
 }
 
-.cityName{
+.inputWrapper {
+    position: relative;
+    flex: 1;
+}
+
+.textField {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.textField :global(.MuiOutlinedInput-root) {
+    color: #fff;
+    border-radius: 8px;
+}
+
+.textField :global(.MuiOutlinedInput-notchedOutline) {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.textField :global(.MuiOutlinedInput-root):hover :global(.MuiOutlinedInput-notchedOutline) {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.textField :global(.Mui-focused) :global(.MuiOutlinedInput-notchedOutline) {
+    border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.textField :global(.MuiInputBase-input::placeholder) {
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 1;
+}
+
+.suggestionsDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 4px;
+}
+
+.suggestionItem {
+    padding: 12px;
+    cursor: pointer;
+    color: #333;
+}
+
+.suggestionItem:hover {
+    background-color: #f0f0f0;
+}
+
+.searchButton {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    text-transform: none !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: none !important;
+}
+
+.searchButton:hover {
+    background-color: rgba(255, 255, 255, 0.35) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: none !important;
+}
+
+.cityName {
     font-size: 1.5rem;
     font-weight: 500;
     color: white;
     display: flex;
     justify-content: right;
-    padding: 20px 40px;
+    padding-right: 20px;
+    padding-top: 10px;
+    align-self: flex-end;
 }

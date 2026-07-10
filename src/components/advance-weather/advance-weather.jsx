@@ -46,30 +46,9 @@ const advanceWeather = ({ weatherData, setWeatherData }) => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-                <Box sx={{ position: 'relative', flex: 1 }}>
+                <Box className={styles.inputWrapper}>
                     <TextField
-                        sx={{
-                            bgcolor: 'rgba(255, 255, 255, 0.12)',
-                            borderRadius: '8px',
-                            width: '100%',
-                            '& .MuiOutlinedInput-root': {
-                                color: '#fff',
-                                '& fieldset': {
-                                    borderColor: 'rgba(255, 255, 255, 0.2)',
-                                    borderRadius: '8px',
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: 'rgba(255, 255, 255, 0.35)',
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: 'rgba(255, 255, 255, 0.6)',
-                                },
-                            },
-                            '& .MuiInputBase-input::placeholder': {
-                                color: 'rgba(255, 255, 255, 0.6)',
-                                opacity: 1,
-                            },
-                        }}
+                        className={styles.textField}
                         placeholder='enter city name'
                         variant="outlined"
                         size="small"
@@ -79,28 +58,11 @@ const advanceWeather = ({ weatherData, setWeatherData }) => {
                         autoComplete="off"
                     />
                     {showSuggestions && suggestions.length > 0 && (
-                        <Box sx={{
-                            position: 'absolute',
-                            top: '100%',
-                            left: 0,
-                            right: 0,
-                            bgcolor: '#ffffff',
-                            borderRadius: '8px',
-                            boxShadow: '0 8px 16px rgba(0,0,0,0.15)',
-                            zIndex: 10,
-                            overflow: 'hidden',
-                            border: '1px solid rgba(0,0,0,0.1)',
-                            mt: 0.5
-                        }}>
+                        <Box className={styles.suggestionsDropdown}>
                             {suggestions.map((city) => (
                                 <Box
                                     key={city.id}
-                                    sx={{
-                                        p: 1.5,
-                                        cursor: 'pointer',
-                                        color: '#333',
-                                        '&:hover': { bgcolor: '#f0f0f0' }
-                                    }}
+                                    className={styles.suggestionItem}
                                     onMouseDown={(e) => {
                                         e.preventDefault();
                                         setValue("city", city.name);
@@ -120,30 +82,15 @@ const advanceWeather = ({ weatherData, setWeatherData }) => {
                     )}
                 </Box>
                 <Button
+                    className={styles.searchButton}
                     variant="contained"
                     type='submit'
-                    sx={{
-                        height: '40px',
-                        bgcolor: 'rgba(255, 255, 255, 0.2)',
-                        color: '#fff',
-                        textTransform: 'none',
-                        fontWeight: 'bold',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(4px)',
-                        boxShadow: 'none',
-                        '&:hover': {
-                            bgcolor: 'rgba(255, 255, 255, 0.35)',
-                            border: '1px solid rgba(255, 255, 255, 0.4)',
-                            boxShadow: 'none',
-                        },
-                    }}
                 >
                     Search
                 </Button>
             </form>
 
-            <Box sx={{ pr: '20px', pt: '10px', alignSelf: 'flex-end' }}>
+            <Box className={styles.cityName}>
                 {weatherData && (
                     <Box sx={{ textAlign: 'right' }}>
                         <Typography variant='h4' sx={{ fontWeight: 'bold', color: '#fff' }}>

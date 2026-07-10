@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-// city details from open meteo
 const getCityDetails = async (cityName) => {
   try {
     const response = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`);
@@ -23,7 +21,6 @@ const getCityDetails = async (cityName) => {
   }
 };
 
-// weather forecast from open meteo
 const getWeatherForecast = async (lat, lon) => {
   try{
     const forecast = await axios.get(
@@ -36,7 +33,6 @@ const getWeatherForecast = async (lat, lon) => {
   }
 };
 
-// city suggestions from open meteo
 const searchCities = async (query) => {
   if (!query) return [];
   try {
