@@ -38,3 +38,18 @@
     justify-content: flex-start;
     padding: 20px;
 }
+
+/* 1. Default state */
+.customTextfield .MuiOutlinedInput-root fieldset {
+    border-color: gray;
+}
+
+/* 2. Hover state */
+.customTextfield .MuiOutlinedInput-root:hover fieldset {
+    border-color: rgba(255, 255, 255, 0.336);
+}
+
+/* 3. Focused state */
+.customTextfield .MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: rgba(253, 253, 253, 0.253);
+}

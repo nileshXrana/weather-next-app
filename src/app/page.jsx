@@ -65,15 +65,20 @@ export default function Home() {
         <FormControl fullWidth sx={{ bgcolor: 'rgba(255, 255, 255, 0.11)', borderRadius: '8px', color: '#ffffffaf' }}>
           <InputLabel sx={{ color: '#ffffffaf' }} id="demo-simple-select-label">Theme</InputLabel>
           <Select
+            className={styles.customTextfield}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={theme}
             label="Theme"
             sx={{
-              color: '#ffffffaf', border: '1px solid rgba(255, 255, 255, 0.16)', borderRadius: '8px', boxShadow: 'none',
-              '.MuiOutlinedInput-notchedOutline': { border: 0 },
-              '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': { border: 0 },
-              '&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+              // color: '#ffffffaf', border: '1px solid rgba(255, 255, 255, 0.16)', borderRadius: '8px', boxShadow: 'none',
+              // '.MuiOutlinedInput-notchedOutline': { border: 0 },
+              // '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': { border: 0 },
+              // '&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'white',
+            borderWidth: '0px',
+          },
             }}
             onChange={themeChange}
           >
