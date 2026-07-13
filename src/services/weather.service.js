@@ -33,6 +33,43 @@ const getWeatherForecast = async (lat, lon) => {
   }
 };
 
+const getWeatherByCoords = async (lat, lon) => {
+  try {
+    const forecast = await getWeatherForecast(lat, lon);
+    let cityName = "Unknown City";
+    let countryName = "Unknown Country";
+    try {
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+        {
+          headers: {
+            "User-Agent": "WeatherNextApp/1.0"
+          }
+        }
+      );
+      const address = response.data?.address;
+      if (address) {
+        cityName = address.city || address.town || address.village || address.suburb || address.state || cityName;
+        countryName = address.country || countryName;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      city: {
+        name: cityName,
+        country: countryName,
+        admin1: "",
+        timezone: forecast?.data?.timezone || "auto"
+      },
+      forecast: forecast.data
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const searchCities = async (city) => {
   if (!city) return [];
   try {
@@ -46,4 +83,4 @@ const searchCities = async (city) => {
   }
 };
 
-export { getCityDetails, getWeatherForecast, searchCities };
+export { getCityDetails, getWeatherForecast, searchCities, getWeatherByCoords };

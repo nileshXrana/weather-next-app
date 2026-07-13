@@ -37,7 +37,7 @@ const forcastWeather = ({ weatherData }) => {
     if (!daily) {
         return (
             <Typography variant='h6' sx={{ color: '#fff', opacity: 0.8 }}>
-                Search for a city to see the 7-day forecast.
+                Weather Forcast
             </Typography>
         );
     }

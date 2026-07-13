@@ -6,11 +6,12 @@ import AdvanceWeather from "@/components/advance-weather/advance-weather";
 import BasicWeather from "@/components/basic-weather/basic-weather";
 import ForcastWeather from "@/components/forcast-weather/forcast-weather";
 import { useState, useEffect } from 'react'
-import { getCityDetails } from '@/services/weather.service'
+import { getCityDetails, getWeatherByCoords } from '@/services/weather.service'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const getWeatherBackground = (code) => {
   if (code === 0) return "/weather_sunny.png";
@@ -27,6 +28,7 @@ const getWeatherBackground = (code) => {
 export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
   const [theme, setTheme] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const themeChange = (event) => {
     setTheme(event.target.value);
@@ -34,8 +36,31 @@ export default function Home() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const weatherDetails = await getCityDetails("New Delhi");
-      setWeatherData(weatherDetails);
+      setLoading(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            const weatherDetails = await getWeatherByCoords(latitude, longitude);
+            if (weatherDetails) {
+              setWeatherData(weatherDetails);
+            } else {
+              const fallback = await getCityDetails("New Delhi");
+              setWeatherData(fallback);
+            }
+            setLoading(false);
+          },
+          async () => {
+            const fallback = await getCityDetails("New Delhi");
+            setWeatherData(fallback);
+            setLoading(false);
+          }
+        );
+      } else {
+        const fallback = await getCityDetails("New Delhi");
+        setWeatherData(fallback);
+        setLoading(false);
+      }
     };
 
     fetchWeatherData();
@@ -45,7 +70,7 @@ export default function Home() {
   const backgroundImage = getWeatherBackground(weatherCode);
 
   return (
-    <Box sx={{
+    <Box className={styles.mainWrapper} sx={{
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -62,7 +87,11 @@ export default function Home() {
         margin: 4,
         zIndex: 1
       }}>
-        <FormControl fullWidth sx={{ bgcolor: 'rgba(255, 255, 255, 0.11)', borderRadius: '8px', color: '#ffffffaf' }}>
+        <FormControl fullWidth sx={{
+          bgcolor: 'rgba(255, 255, 255, 0.11)', borderRadius: '8px', color: '#ffffffaf', '& .MuiFormLabel-root.Mui-focused': {
+            color: '#ffffffaf !important',
+          },
+        }}>
           <InputLabel sx={{ color: '#ffffffaf' }} id="demo-simple-select-label">Theme</InputLabel>
           <Select
             className={styles.customTextfield}
@@ -71,14 +100,13 @@ export default function Home() {
             value={theme}
             label="Theme"
             sx={{
-              // color: '#ffffffaf', border: '1px solid rgba(255, 255, 255, 0.16)', borderRadius: '8px', boxShadow: 'none',
-              // '.MuiOutlinedInput-notchedOutline': { border: 0 },
-              // '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': { border: 0 },
-              // '&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
+              color: '#ffffffaf', borderRadius: '8px', boxShadow: 'none',
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#ffffff24 !important',
+              },
               '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'white',
-            borderWidth: '0px',
-          },
+                borderColor: '#ffffff24 !important',
+              },
             }}
             onChange={themeChange}
           >
@@ -144,13 +172,29 @@ export default function Home() {
               <BasicWeather weatherData={weatherData} />
             </Box>
             <Box className={styles.rightContainer}>
-              <AdvanceWeather weatherData={weatherData} setWeatherData={setWeatherData} />
+              <AdvanceWeather weatherData={weatherData} setWeatherData={setWeatherData} setLoading={setLoading} />
             </Box>
           </Box>
           <Box className={styles.bottomContainer}>
             <ForcastWeather weatherData={weatherData} />
           </Box>
         </Box>
+        {loading && (
+          <Box sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bgcolor: 'rgba(0, 0, 0, 0.65)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 10
+          }}>
+            <CircularProgress sx={{ color: '#fff' }} />
+          </Box>
+        )}
       </Box>
     </Box>
   );

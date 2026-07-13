@@ -4,8 +4,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Image from "next/image";
-import styles from "./page.module.css";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        {children}</body>
+        <AppRouterCacheProvider>
+          {children}
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }

@@ -11,7 +11,7 @@ import { useDebounce } from 'use-debounce'
 import { getCityDetails, searchCities } from '@/services/weather.service'
 import SearchIcon from '@mui/icons-material/Search';
 
-const advanceWeather = ({ weatherData, setWeatherData }) => {
+const advanceWeather = ({ weatherData, setWeatherData, setLoading }) => {
 
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -36,10 +36,12 @@ const advanceWeather = ({ weatherData, setWeatherData }) => {
     }, [debouncedInput, showSuggestions]);
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const result = await getCityDetails(data.city);
         if (result) {
             setWeatherData(result);
         }
+        setLoading(false);
         setShowSuggestions(false);
         setSuggestions([]);
     }
